@@ -7,6 +7,40 @@ const app = express()
 // 라우터 불러오기
 const indexRoute = require('./routes/index.js')
 
+// 몽고스 불러오기
+const mongoose = require('mongoose')
+// 'mongodb://127.0.0.1/27017/{DB이름}'
+mongoose.connect("mongodb://127.0.0.1:27017/nodejs", {
+    useNewUrlParser: true
+}).then(() => {
+    console.log("Connected to MongoDB...")
+}).catch((err) => {
+    console.log(err.message)
+})
+// 데이터의 형식을 지정해준다
+const UserSchema = new mongoose.Schema({
+    name: String,
+    age: Number,
+    saveData: {
+        type: Date,
+        default: Date.now,
+    }
+})
+
+const User = mongoose.model("User", UserSchema)
+
+const me = new User({
+    name: "dae young",
+    age: 27
+})
+
+me.save()
+.then(() => {
+    console.log(me)
+}).catch((err) => {
+    console.log("Error, ", err)
+})
+
 function pickMyFood () {
     const food = ['돈까스', '김밥', '초밥', '떡볶이', '샌드위치', '김치찌개', '파스타', '볶음밥', '오므라이스', '치킨', '짜장면']
     let idx = Math.floor(Math.random() * food.length)

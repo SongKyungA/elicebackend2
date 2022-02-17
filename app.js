@@ -35,6 +35,11 @@ const mbti = [
 const direction = ['동', '서', '남', '북']
 const reward = ['우정', '행운', '재물', '지혜', '즐거움', '놀라움']
 
+const randIdx = function(arr) {
+    return Math.floor(Math.random() * arr.length)
+}
+
+
 app.use('/', indexRoute)
 
 // req = request(요청) : 사용자의 브라우저 정보, 쿼리(질문: 주소창 정보), 로그인 정보
@@ -54,9 +59,9 @@ app.get('/food', (req, res) => {
 
 app.get('/lucky', (req, res) => {
     res.send(`
-    <p></p>오늘 당신이 ${direction[Math.floor(Math.random() * direction.length)]}쪽으로 가신다면, <p></p>
-    만날 귀인은 바로 ${mbti[Math.floor(Math.random() * mbti.length)]}입니다. <p></p>
-    그는 당신에게 ${reward[Math.floor(Math.random() * reward.length)]}을 선사할 것입니다. <p></p>
+    <p></p>오늘 당신이 <font color='blue'>${direction[randIdx(direction)]}쪽</font>으로 가신다면, <p></p>
+    만날 귀인은 바로 <font color='purple'>${mbti[randIdx(mbti)]}</font>입니다. <p></p>
+    그는 당신에게 <font color='red'>${reward[randIdx(reward)]}</font>을 선사할 것입니다. <p></p>
     <u>그는 당신에게 소중한 인연입니다.</u>
     `)
 })

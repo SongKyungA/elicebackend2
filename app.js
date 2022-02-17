@@ -7,6 +7,12 @@ const app = express()
 // 라우터 불러오기
 const indexRoute = require('./routes/index.js')
 
+function pickMyFood () {
+    const food = ['돈까스', '김밥', '초밥', '떡볶이', '샌드위치', '김치찌개', '파스타', '볶음밥', '오므라이스', '치킨', '짜장면']
+    let idx = Math.floor(Math.random() * food.length)
+    return food[idx]
+}
+
 app.use('/', indexRoute)
 
 // req = request(요청) : 사용자의 브라우저 정보, 쿼리(질문: 주소창 정보), 로그인 정보
@@ -18,6 +24,11 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'))
 })
 */
+
+app.get('/food', (req, res) => {
+    text = pickMyFood()
+    res.send(`오늘 당신에게 추천드리는 메뉴는 바로 ${text}입니다!!`)
+})
 
 // 디렉토리 추가하기
 app.get('/webtoon', (req, res) => {
